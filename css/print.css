@@ -1,0 +1,297 @@
+/* print.css - Print-optimized styles for worksheets */
+
+@media print {
+  /* Reset for print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    background: white;
+    font-size: 11pt;
+    line-height: 1.4;
+    color: black;
+  }
+  
+  /* Hide non-print elements */
+  .site-header,
+  .no-print,
+  .btn,
+  button,
+  select,
+  input,
+  .nav-links,
+  .config-panel {
+    display: none !important;
+  }
+  
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+  
+  /* Worksheet container */
+  .worksheet {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Worksheet header */
+  .worksheet-header {
+    text-align: center;
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #333;
+  }
+  
+  .worksheet-header h1 {
+    font-size: 18pt;
+    margin-bottom: 0.25em;
+    color: black;
+  }
+  
+  .worksheet-header .subtitle {
+    font-size: 11pt;
+    color: #555;
+  }
+  
+  /* Student info line */
+  .student-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+    font-size: 10pt;
+  }
+  
+  .student-info span {
+    border-bottom: 1px solid #999;
+    min-width: 150px;
+    display: inline-block;
+    margin-left: 0.5em;
+  }
+  
+  /* Questions */
+  .print-question {
+    margin-bottom: 1.5em;
+    page-break-inside: avoid;
+  }
+  
+  .print-question-number {
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+  
+  .print-question-prompt {
+    font-size: 11pt;
+    margin-bottom: 0.75em;
+    line-height: 1.5;
+  }
+  
+  .print-question-prompt .blank {
+    display: inline-block;
+    min-width: 100px;
+    border-bottom: 1px solid #333;
+  }
+  
+  /* Answer options */
+  .print-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5em;
+    margin-left: 1.5em;
+  }
+  
+  .print-option {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25em;
+  }
+  
+  .print-option-letter {
+    font-weight: bold;
+  }
+  
+  /* Synonym questions - display differently */
+  .print-question.synonym .print-question-prompt {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Section headers */
+  .print-section-header {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 1.5em 0 1em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Answer key - force new page */
+  .answer-key {
+    page-break-before: always !important;
+    break-before: page !important;
+    margin-top: 0;
+    padding-top: 2em;
+  }
+  
+  .answer-key h2 {
+    font-size: 14pt;
+    margin-bottom: 1em;
+    text-align: center;
+    color: black;
+  }
+  
+  .answer-key-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5em;
+    font-size: 10pt;
+  }
+  
+  .answer-key-item {
+    padding: 0.25em;
+  }
+  
+  /* Page settings */
+  @page {
+    size: letter;
+    margin: 0.75in;
+  }
+  
+  /* Avoid breaks */
+  h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  .print-question {
+    page-break-inside: avoid;
+  }
+}
+
+/* Screen preview of print layout */
+.worksheet-preview {
+  background: white;
+  max-width: 8.5in;
+  min-height: 11in;
+  margin: var(--space-lg) auto;
+  padding: 0.75in;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+}
+
+.worksheet-preview .worksheet-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #333;
+}
+
+.worksheet-preview .worksheet-header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  color: black;
+}
+
+.worksheet-preview .worksheet-header .subtitle {
+  color: #555;
+}
+
+.worksheet-preview .student-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.worksheet-preview .student-info span {
+  border-bottom: 1px solid #999;
+  min-width: 150px;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.worksheet-preview .print-question {
+  margin-bottom: 1.5rem;
+}
+
+.worksheet-preview .print-question-number {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.worksheet-preview .print-question-prompt {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.worksheet-preview .print-question-prompt .blank {
+  display: inline-block;
+  min-width: 100px;
+  border-bottom: 1px solid #333;
+}
+
+.worksheet-preview .print-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+.worksheet-preview .print-option {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.worksheet-preview .print-option-letter {
+  font-weight: bold;
+}
+
+.worksheet-preview .print-question.synonym .print-question-prompt {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.worksheet-preview .print-section-header {
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.worksheet-preview .answer-key {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 3px dashed var(--color-primary);
+  position: relative;
+}
+
+.worksheet-preview .answer-key::before {
+  content: "— New Page —";
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 0 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.worksheet-preview .answer-key h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.worksheet-preview .answer-key-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}

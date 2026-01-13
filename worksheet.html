@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worksheets - ISEE Verbal Practice</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1><a href="index.html"><span class="logo-icon">📚</span> ISEE Verbal Practice</a></h1>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="practice.html">Practice</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="worksheet.html" class="active">Worksheets</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <!-- Configuration Panel -->
+    <div class="card config-panel no-print">
+      <div class="card-header">
+        <h2>Generate Worksheet</h2>
+      </div>
+      
+      <form id="worksheet-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ws-level">Level</label>
+            <select id="ws-level" required>
+              <option value="lower">Lower Level (Grades 5-6)</option>
+              <option value="middle">Middle Level (Grades 6-7)</option>
+              <option value="upper">Upper Level (Grades 7-8)</option>
+              <option value="all">All Levels</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="ws-type">Question Type</label>
+            <select id="ws-type" required>
+              <option value="mixed">Mixed (Both Types)</option>
+              <option value="synonyms">Synonyms Only</option>
+              <option value="sentences">Sentence Completions Only</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ws-count">Number of Questions</label>
+            <select id="ws-count" required>
+              <option value="10">10 Questions</option>
+              <option value="15">15 Questions</option>
+              <option value="20" selected>20 Questions</option>
+              <option value="25">25 Questions</option>
+              <option value="30">30 Questions</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="ws-title">Worksheet Title (optional)</label>
+            <input type="text" id="ws-title" placeholder="e.g., Week 3 Practice">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="ws-answer-key" checked>
+            <label for="ws-answer-key" style="margin-bottom: 0;">Include Answer Key</label>
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: var(--space-md);">
+          <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">
+            Generate Worksheet
+          </button>
+          <button type="button" id="print-btn" class="btn btn-accent btn-lg hidden">
+            🖨️ Print
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Worksheet Preview -->
+    <div id="worksheet-container" class="hidden">
+      <div class="no-print" style="text-align: center; margin-bottom: var(--space-md);">
+        <p class="text-light">Preview your worksheet below. Click Print when ready.</p>
+      </div>
+      
+      <div id="worksheet-preview" class="worksheet-preview worksheet">
+        <!-- Generated worksheet content goes here -->
+      </div>
+    </div>
+  </main>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/worksheet.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards - ISEE Verbal Practice</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1><a href="index.html"><span class="logo-icon">📚</span> ISEE Verbal Practice</a></h1>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="practice.html">Practice</a>
+        <a href="flashcards.html" class="active">Flashcards</a>
+        <a href="worksheet.html">Worksheets</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <!-- Setup Screen -->
+    <div id="setup-screen" class="card">
+      <div class="card-header">
+        <h2>Study Flashcards</h2>
+      </div>
+      
+      <form id="flashcard-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fc-level">Level</label>
+            <select id="fc-level" required>
+              <option value="lower">Lower Level (Grades 5-6)</option>
+              <option value="middle">Middle Level (Grades 6-7)</option>
+              <option value="upper">Upper Level (Grades 7-8)</option>
+              <option value="all">All Levels</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="fc-mode">Study Mode</label>
+            <select id="fc-mode" required>
+              <option value="all">All Words</option>
+              <option value="review">Review Words Only</option>
+              <option value="learning">Words I'm Learning</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="fc-count">Number of Cards</label>
+          <select id="fc-count" required>
+            <option value="10">10 Cards</option>
+            <option value="20" selected>20 Cards</option>
+            <option value="30">30 Cards</option>
+            <option value="50">50 Cards</option>
+            <option value="all">All Available</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="fc-shuffle" checked>
+            <label for="fc-shuffle" style="margin-bottom: 0;">Shuffle cards</label>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          Start Studying
+        </button>
+      </form>
+      
+      <!-- Stats summary -->
+      <div id="fc-stats" class="hidden" style="margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-border);">
+        <h4 style="margin-bottom: var(--space-sm);">Your Progress</h4>
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="stat-card">
+            <div class="stat-number" id="fc-stat-known">0</div>
+            <div class="stat-label">Known</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="fc-stat-learning">0</div>
+            <div class="stat-label">Learning</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="fc-stat-total">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Study Screen -->
+    <div id="study-screen" class="card hidden">
+      <div class="flashcard-progress">
+        Card <span id="card-current">1</span> of <span id="card-total">20</span>
+        <span id="card-known-indicator" class="hidden" style="margin-left: var(--space-sm); color: var(--color-success);">✓ Known</span>
+      </div>
+      
+      <div class="progress-bar" style="margin-bottom: var(--space-lg);">
+        <div class="progress-fill" id="fc-progress-fill" style="width: 0%"></div>
+      </div>
+      
+      <div class="flashcard-container">
+        <div id="flashcard" class="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <div class="flashcard-label">Word</div>
+            <div class="flashcard-word" id="fc-word"></div>
+            <div class="flashcard-hint">Click to reveal synonym</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="flashcard-label">Synonym</div>
+            <div class="flashcard-synonym" id="fc-synonym"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flashcard-actions">
+        <button id="btn-still-learning" class="btn btn-learning">
+          📚 Still Learning
+        </button>
+        <button id="btn-know-it" class="btn btn-know">
+          ✓ Know It
+        </button>
+      </div>
+      
+      <div class="flashcard-controls">
+        <button id="btn-prev" class="btn btn-secondary" disabled>
+          ← Previous
+        </button>
+        <button id="btn-next" class="btn btn-primary">
+          Next →
+        </button>
+      </div>
+      
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <button id="btn-end-session" class="btn btn-secondary btn-sm">
+          End Session
+        </button>
+      </div>
+    </div>
+    
+    <!-- Results Screen -->
+    <div id="results-screen" class="card hidden">
+      <div class="score-display">
+        <div class="score-number" id="session-known">0</div>
+        <div class="score-label">words marked as known this session</div>
+      </div>
+      
+      <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: var(--space-xl);">
+        <div class="stat-card">
+          <div class="stat-number" id="result-reviewed">0</div>
+          <div class="stat-label">Cards Reviewed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="result-learning">0</div>
+          <div class="stat-label">Still Learning</div>
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: var(--space-md); margin-top: var(--space-xl);">
+        <button id="btn-study-again" class="btn btn-secondary" style="flex: 1;">
+          Study Again
+        </button>
+        <a href="practice.html" class="btn btn-primary" style="flex: 1; text-decoration: none;">
+          Take a Quiz
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/profiles.js"></script>
+  <script src="js/flashcards.js"></script>
+</body>
+</html>

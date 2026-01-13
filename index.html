@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISEE Verbal Practice</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1><span class="logo-icon">📚</span> ISEE Verbal Practice</h1>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="practice.html">Practice</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="worksheet.html">Worksheets</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <!-- Profile Section -->
+    <div class="card profile-card" id="profile-section">
+      <div id="no-profile" class="text-center">
+        <h2>Welcome!</h2>
+        <p class="text-light" style="margin: var(--space-md) 0;">Create a profile to track your progress and build your vocabulary.</p>
+        
+        <div id="existing-profiles" class="hidden" style="margin-bottom: var(--space-lg);">
+          <p style="margin-bottom: var(--space-sm);">Select your profile:</p>
+          <div id="profile-list" class="profile-list"></div>
+          <p class="text-light" style="margin: var(--space-md) 0; font-size: 0.9rem;">— or create a new one —</p>
+        </div>
+        
+        <form id="create-profile-form" class="create-profile-form">
+          <input type="text" id="profile-name-input" placeholder="Enter your name" maxlength="20" required>
+          <button type="submit" class="btn btn-primary">Create Profile</button>
+        </form>
+      </div>
+      
+      <div id="active-profile" class="hidden">
+        <div class="profile-header">
+          <div>
+            <span class="profile-greeting">Hello,</span>
+            <span class="profile-name" id="display-name"></span>
+          </div>
+          <button id="switch-profile-btn" class="btn btn-secondary btn-sm">Switch Profile</button>
+        </div>
+        
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="stat-quizzes">0</div>
+            <div class="stat-label">Quizzes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-accuracy">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-recent">0%</div>
+            <div class="stat-label">Recent</div>
+          </div>
+          <div class="stat-card clickable" id="review-words-card">
+            <div class="stat-number" id="stat-review">0</div>
+            <div class="stat-label">To Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Words to Review Section (shown when profile active and has words) -->
+    <div id="review-section" class="card hidden">
+      <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0;">📝 Words to Review</h3>
+        <a href="practice.html?mode=review" class="btn btn-primary btn-sm">Practice These</a>
+      </div>
+      <div id="review-words-list" class="review-words-list"></div>
+      <p class="text-light text-center" style="margin-top: var(--space-md); font-size: 0.85rem;">
+        Words you've missed will appear here. Master them to remove from the list.
+      </p>
+    </div>
+    
+    <!-- Feature Cards -->
+    <div class="feature-grid">
+      <a href="practice.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🎯</div>
+        <h3>Online Practice</h3>
+        <p>Interactive quizzes with instant feedback. Track your progress and review missed questions.</p>
+        <span class="btn btn-primary">Start Practice</span>
+      </a>
+      
+      <a href="flashcards.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🃏</div>
+        <h3>Flashcards</h3>
+        <p>Study vocabulary with flip cards. Focus on words you need to learn or review everything.</p>
+        <span class="btn btn-primary">Study Cards</span>
+      </a>
+      
+      <a href="worksheet.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">📝</div>
+        <h3>Worksheets</h3>
+        <p>Generate printable practice sheets for offline study. Perfect for classroom or homework.</p>
+        <span class="btn btn-secondary">Create Worksheet</span>
+      </a>
+    </div>
+    
+    <!-- About Section -->
+    <div class="card" style="margin-top: var(--space-lg);">
+      <h3 style="margin-bottom: var(--space-md);">About the ISEE Verbal Section</h3>
+      <p style="margin-bottom: var(--space-md);">
+        The ISEE Verbal Reasoning section tests vocabulary through two question types:
+      </p>
+      <p style="margin-bottom: var(--space-sm);">
+        <strong>Synonyms:</strong> Select the word that has the same or nearly the same meaning as the given word.
+      </p>
+      <p>
+        <strong>Sentence Completions:</strong> Choose the word that best completes the sentence based on context clues.
+      </p>
+    </div>
+  </main>
+  
+  <!-- Profile Switch Modal -->
+  <div id="profile-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content card">
+      <h3 style="margin-bottom: var(--space-lg);">Switch Profile</h3>
+      <div id="modal-profile-list" class="profile-list"></div>
+      <div style="margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--color-border);">
+        <p style="margin-bottom: var(--space-sm); font-size: 0.9rem;">Create new profile:</p>
+        <form id="modal-create-form" class="create-profile-form">
+          <input type="text" id="modal-profile-name" placeholder="Enter name" maxlength="20" required>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+      <button id="close-modal-btn" class="btn btn-secondary" style="width: 100%; margin-top: var(--space-md);">Cancel</button>
+    </div>
+  </div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/profiles.js"></script>
+  <script>
+    // DOM Elements
+    const noProfileSection = document.getElementById('no-profile');
+    const activeProfileSection = document.getElementById('active-profile');
+    const existingProfilesDiv = document.getElementById('existing-profiles');
+    const profileListDiv = document.getElementById('profile-list');
+    const createProfileForm = document.getElementById('create-profile-form');
+    const profileNameInput = document.getElementById('profile-name-input');
+    const displayName = document.getElementById('display-name');
+    const switchProfileBtn = document.getElementById('switch-profile-btn');
+    const reviewSection = document.getElementById('review-section');
+    const reviewWordsList = document.getElementById('review-words-list');
+    const profileModal = document.getElementById('profile-modal');
+    const modalProfileList = document.getElementById('modal-profile-list');
+    const modalCreateForm = document.getElementById('modal-create-form');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const reviewWordsCard = document.getElementById('review-words-card');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData(); // Preload quiz data
+      renderProfileSection();
+      
+      createProfileForm.addEventListener('submit', handleCreateProfile);
+      modalCreateForm.addEventListener('submit', handleModalCreateProfile);
+      switchProfileBtn.addEventListener('click', openProfileModal);
+      closeModalBtn.addEventListener('click', closeProfileModal);
+      document.querySelector('.modal-backdrop')?.addEventListener('click', closeProfileModal);
+      reviewWordsCard.addEventListener('click', () => {
+        reviewSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    
+    function renderProfileSection() {
+      const profiles = getAllProfiles();
+      const activeProfile = getActiveProfile();
+      
+      if (activeProfile) {
+        // Show active profile view
+        noProfileSection.classList.add('hidden');
+        activeProfileSection.classList.remove('hidden');
+        displayName.textContent = activeProfile.name;
+        
+        // Update stats
+        const stats = getProfileStats();
+        document.getElementById('stat-quizzes').textContent = stats.totalQuizzes;
+        document.getElementById('stat-accuracy').textContent = stats.accuracy + '%';
+        document.getElementById('stat-recent').textContent = stats.recentAccuracy + '%';
+        document.getElementById('stat-review').textContent = stats.wordsToReview;
+        
+        // Show review words if any
+        renderReviewWords();
+      } else {
+        // Show profile selection/creation
+        noProfileSection.classList.remove('hidden');
+        activeProfileSection.classList.add('hidden');
+        reviewSection.classList.add('hidden');
+        
+        if (profiles.length > 0) {
+          existingProfilesDiv.classList.remove('hidden');
+          renderProfileList(profileListDiv, profiles);
+        } else {
+          existingProfilesDiv.classList.add('hidden');
+        }
+      }
+    }
+    
+    function renderProfileList(container, profiles) {
+      container.innerHTML = profiles.map(p => `
+        <div class="profile-item" data-id="${p.id}">
+          <span class="profile-item-name">${p.name}</span>
+          <span class="profile-item-stats">${p.stats.totalQuizzes} quizzes</span>
+          <button class="btn btn-sm btn-delete" data-id="${p.id}" title="Delete profile">×</button>
+        </div>
+      `).join('');
+      
+      // Add click handlers
+      container.querySelectorAll('.profile-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('btn-delete')) {
+            selectProfile(item.dataset.id);
+          }
+        });
+      });
+      
+      container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm('Delete this profile? This cannot be undone.')) {
+            deleteProfile(btn.dataset.id);
+            renderProfileSection();
+          }
+        });
+      });
+    }
+    
+    function renderReviewWords() {
+      const reviewWords = getReviewWords();
+      
+      if (reviewWords.length === 0) {
+        reviewSection.classList.add('hidden');
+        return;
+      }
+      
+      reviewSection.classList.remove('hidden');
+      
+      // Show top 10 words
+      const displayWords = reviewWords.slice(0, 10);
+      
+      reviewWordsList.innerHTML = displayWords.map(w => `
+        <div class="review-word-item">
+          <span class="review-word">${w.word}</span>
+          <span class="review-word-type ${w.type}">${w.type}</span>
+          <span class="review-word-count">missed ${w.missedCount}×</span>
+          <button class="btn-icon btn-master" data-word="${w.word}" data-type="${w.type}" title="Mark as mastered">✓</button>
+        </div>
+      `).join('');
+      
+      if (reviewWords.length > 10) {
+        reviewWordsList.innerHTML += `<p class="text-light text-center" style="margin-top: var(--space-sm);">+ ${reviewWords.length - 10} more words</p>`;
+      }
+      
+      // Add master button handlers
+      reviewWordsList.querySelectorAll('.btn-master').forEach(btn => {
+        btn.addEventListener('click', () => {
+          removeWordFromReview(btn.dataset.word, btn.dataset.type);
+          renderProfileSection();
+        });
+      });
+    }
+    
+    function handleCreateProfile(e) {
+      e.preventDefault();
+      const name = profileNameInput.value.trim();
+      
+      if (!name) return;
+      
+      try {
+        createProfile(name);
+        profileNameInput.value = '';
+        renderProfileSection();
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    
+    function handleModalCreateProfile(e) {
+      e.preventDefault();
+      const name = document.getElementById('modal-profile-name').value.trim();
+      
+      if (!name) return;
+      
+      try {
+        createProfile(name);
+        document.getElementById('modal-profile-name').value = '';
+        closeProfileModal();
+        renderProfileSection();
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    
+    function selectProfile(profileId) {
+      setActiveProfile(profileId);
+      closeProfileModal();
+      renderProfileSection();
+    }
+    
+    function openProfileModal() {
+      const profiles = getAllProfiles();
+      renderProfileList(modalProfileList, profiles);
+      profileModal.classList.remove('hidden');
+    }
+    
+    function closeProfileModal() {
+      profileModal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
